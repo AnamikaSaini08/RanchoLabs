@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useRef, useState } from "react";
 
 import Blockly from "blockly/core";
+import "blockly/javascript";
 import { javascriptGenerator } from "blockly/javascript";
 import locale from "blockly/msg/en";
 import "blockly/blocks";
@@ -21,13 +22,8 @@ function BlocklyComponent(props) {
     (store) => store.blocklyInstruction.blockInstructionArray
   );
   const gamesConfig = useSelector((store) => store.matrixConfig);
-  const {
-    row,
-    col,
-    batteryPosition,
-    obstaclePosition,
-    initialDirectionRobot
-  } = gamesConfig.gameConfigOne;
+  const { row, col, batteryPosition, obstaclePosition, initialDirectionRobot } =
+    gamesConfig.gameConfigOne;
   const robotDirectionRef = useRef(initialDirectionRobot);
 
   const dispatch = useDispatch();
@@ -54,17 +50,31 @@ function BlocklyComponent(props) {
 
   useEffect(() => {
     const { children, ...rest } = props;
-    const { readOnly, trashcan, media, move } = props;
-    primaryWorkspace.current = Blockly.inject(blocklyDiv.current, {
+    const { readOnly, trashcan, move } = props;
+    const workspace = Blockly.inject(blocklyDiv.current, {
       toolbox: toolbox.current,
       readOnly,
       trashcan,
-      media,
       move,
       trashcan: props.trashcan,
-      media: props.media,
-      move: props.move
+      move: props.move,
     });
+    workspace.addChangeListener((event) => {
+      if (
+        event.type === Blockly.Events.CREATE ||
+        event.type === Blockly.Events.MOVE ||
+        event.type === Blockly.Events.END_DRAG ||
+        event.type === Blockly.Events.BLOCK_MOVE
+      ) {
+        // Handle block connections and movements
+        try {
+        } catch (error) {
+          console.error("An error occurred during code generation:", error);
+          // Handle the error gracefully (e.g., show a notification, display an error message)
+        }
+      }
+    });
+    primaryWorkspace.current = workspace;
   }, [primaryWorkspace, toolbox, blocklyDiv]);
 
   return (
