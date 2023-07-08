@@ -5,6 +5,7 @@ import { Stats, OrbitControls } from "@react-three/drei";
 import { Robot } from "./Robot";
 import { DoubleSide } from "three";
 import { useState, useRef } from "react";
+import { Model } from "./Coin";
 
 function Box({ position }) {
   const boxRef = useRef();
@@ -24,7 +25,7 @@ const ThreeDMatrix = ({
   robotEndPosition,
   robotPositionRef,
   robotPosition,
-  setRobotPosition
+  setRobotPosition,
 }) => {
   const boxOffset = 5;
 
@@ -47,6 +48,7 @@ const ThreeDMatrix = ({
           batteryPosition={batteryPosition}
           obstaclePosition={obstaclePosition}
         />
+        <Model />
         <OrbitControls />
         <gridHelper args={[row, col, "red", "red", "red"]} />
         <mesh
