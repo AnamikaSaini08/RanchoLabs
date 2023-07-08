@@ -19,11 +19,10 @@ const Home = () => {
         <BlocklyComponent
           readOnly={false}
           trashcan={true}
-          media={"media/"}
           move={{
             scrollbars: true,
             drag: true,
-            wheel: true
+            wheel: true,
           }}
           robotPositionRef={robotPositionRef}
           robotPosition={robotPosition}
