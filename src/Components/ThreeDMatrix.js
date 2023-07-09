@@ -39,6 +39,7 @@ const ThreeDMatrix = ({
 }) => {
   const boxOffset = 5;
   const [filterBatteryPosition , setFilterBatteryPosition] = useState(batteryPosition);
+  const [deleteCoorBattery,setDeleteCoorBattery] = useState([]);
 
   return (
     <div className="h-screen w-full flex justify-center items-center bg-black">
@@ -62,6 +63,7 @@ const ThreeDMatrix = ({
           obstaclePosition={obstaclePosition}
           resetFlag ={resetFlag}
           setResetFlag={setResetFlag}
+          setDeleteCoorBattery ={setDeleteCoorBattery}
         />
         <OrbitControls />
         <gridHelper args={[row, col, "red", "red", "red"]} />
