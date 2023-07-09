@@ -6,11 +6,13 @@ const matrixConfigSlice = createSlice({
     gameConfigOne: {
       row: 10,
       col: 10,
-      robotStartPosition: { x: 4, y: 4 },
+      robotStartPosition: { x: 4, y: 2 },
       robotEndPosition: { x: 10, y: 10 },
       obstaclePosition: [
         [4, 7],
-        [7, 7]
+        [7, 7],
+        [2,2],
+        [5,3]
       ],
       batteryPosition: [
         [4, 3],

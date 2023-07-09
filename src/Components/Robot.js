@@ -54,6 +54,8 @@ export function Robot(props) {
       });
       mesh.position.x = position.x;
       mesh.position.z = position.z;
+      setCurrentIndex(0);
+      setResetFlag(false);
     }
     let direction;
     // Calculate the current direction
@@ -64,18 +66,25 @@ export function Robot(props) {
       direction = blocklyInstruction[currentIndex];
       if (robotDirectionRef.current === "LEFT") {
         if (direction === "FORWARD") {
-          if (mesh.position.x < -(boxOffset - 0.5) && !alertShown.current) {
+          if ((mesh.position.x < -(boxOffset - 0.5) && !alertShown.current) || (obstaclePosition.some(
+            ([x, y]) => {
+              return (x-boxOffset-0.5 === position.x - 1 && (-(y-boxOffset-0.5) === position.z))
+            }
+          )) ) {
             alertShown.current = true;
             alert("Game End");
             return;
           }
+          
           mesh.position.x -= stepDistance;
           if (mesh.position.x < position.x - 1) {
             setCurrentIndex((prevIndex) => prevIndex + 1);
             setPosition({ ...position, x: position.x - 1 });
           }
         } else if (direction === "BACKWARD") {
-          if (mesh.position.x > boxOffset - 0.5 && !alertShown.current) {
+          if ((mesh.position.x > boxOffset - 0.5 && !alertShown.current) || (obstaclePosition.some(
+            ([x, y]) => (x-boxOffset-0.5 === position.x + 1 && (-(y-boxOffset-0.5) === position.z))
+          ))) {
             alertShown.current = true;
             alert("Game End");
             return;
@@ -96,7 +105,9 @@ export function Robot(props) {
         }
       } else if (robotDirectionRef.current === "RIGHT") {
         if (direction === "FORWARD") {
-          if (mesh.position.x > boxOffset - 0.5 && !alertShown.current) {
+          if ((mesh.position.x > boxOffset - 0.5 && !alertShown.current) || (obstaclePosition.some(
+            ([x, y]) =>(x-boxOffset-0.5 === position.x + 1 && (-(y-boxOffset-0.5) === position.z))
+          ))) {
             alertShown.current = true;
             alert("Game End");
             return;
@@ -107,7 +118,9 @@ export function Robot(props) {
             setPosition({ ...position, x: position.x + 1 });
           }
         } else if (direction === "BACKWARD") {
-          if (mesh.position.x < -(boxOffset - 0.5) && !alertShown.current) {
+          if ((mesh.position.x < -(boxOffset - 0.5) && !alertShown.current) || (obstaclePosition.some(
+            ([x, y]) => (x-boxOffset-0.5 === position.x - 1 && (-(y-boxOffset-0.5) === position.z))
+          ))) {
             alertShown.current = true;
             alert("Game End");
             return;
@@ -128,7 +141,9 @@ export function Robot(props) {
         }
       } else if (robotDirectionRef.current === "TOP") {
         if (direction === "FORWARD") {
-          if (mesh.position.z < -boxOffset + 0.5 && !alertShown.current) {
+          if ((mesh.position.z < -boxOffset + 0.5 && !alertShown.current || (obstaclePosition.some(
+            ([x, y]) => (x-boxOffset-0.5 === position.x && (-(y-boxOffset-0.5) === position.z-1))
+          )))) {
             alertShown.current = true;
             alert("Game End");
             return;
@@ -139,7 +154,9 @@ export function Robot(props) {
             setPosition({ ...position, z: position.z - 1 });
           }
         } else if (direction === "BACKWARD") {
-          if (mesh.position.z > boxOffset - 0.5 && !alertShown.current) {
+          if ((mesh.position.z > boxOffset - 0.5 && !alertShown.current) || (obstaclePosition.some(
+            ([x, y]) => (x-boxOffset-0.5 === position.x && (-(y-boxOffset-0.5) === position.z+1))
+          ))) {
             alertShown.current = true;
             alert("Game End");
             return;
@@ -160,7 +177,9 @@ export function Robot(props) {
         }
       } else if (robotDirectionRef.current === "BOTTOM") {
         if (direction === "FORWARD") {
-          if (mesh.position.z > boxOffset - 0.5 && !alertShown.current) {
+          if ((mesh.position.z > boxOffset - 0.5 && !alertShown.current) || (obstaclePosition.some(
+            ([x, y]) => (x-boxOffset-0.5 === position.x  && (-(y-boxOffset-0.5) === position.z+1))
+          ))) {
             alertShown.current = true;
             alert("Game End");
             return;
@@ -171,7 +190,9 @@ export function Robot(props) {
             setPosition({ ...position, z: position.z + 1 });
           }
         } else if (direction === "BACKWARD") {
-          if (mesh.position.z < -boxOffset + 0.5 && !alertShown.current) {
+          if ((mesh.position.z < -boxOffset + 0.5 && !alertShown.current) || (obstaclePosition.some(
+            ([x, y]) => (x-boxOffset-0.5 === position.x && (-(y-boxOffset-0.5) === position.z-1))
+          ))) {
             alertShown.current = true;
             alert("Game End");
             return;

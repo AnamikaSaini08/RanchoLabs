@@ -30,24 +30,17 @@ function BlocklyComponent(props) {
   let commandArray = [];
 
   const generateBlocklyCode = () => {
-    setResetFlag(false)
+    setResetFlag(false);
     commandArray = generateCode(primaryWorkspace.current, javascriptGenerator);
     dispatch(addBlockInstruction(commandArray));
     //Below print , means just after dispatch render does't occur - neeche saare execute hone ke baad phir render hoga.
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     console.log("blocklyInstruction- ", blocklyInstruction);
     robotPositionRef.current = initialDirectionRobot;
-    changeRobotPosition(
-      blocklyInstruction,
-      obstaclePosition,
-      row,
-      col,
-      setRobotPosition,
-      robotDirectionRef
-    );
-  }, [blocklyInstruction]);
+
+  }, [blocklyInstruction]);*/
 
   useEffect(() => {
     const { children, ...rest } = props;

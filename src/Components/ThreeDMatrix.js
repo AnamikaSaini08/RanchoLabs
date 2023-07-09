@@ -17,6 +17,13 @@ function Box({ position }) {
     </mesh>
   );
 }
+function Star({ position }) {
+  return (
+    <mesh position={position}>
+      <Coin/>
+    </mesh>
+  );
+}
 const ThreeDMatrix = ({
   row,
   col,
@@ -31,6 +38,7 @@ const ThreeDMatrix = ({
   setResetFlag
 }) => {
   const boxOffset = 5;
+  const [filterBatteryPosition , setFilterBatteryPosition] = useState(batteryPosition);
 
   return (
     <div className="h-screen w-full flex justify-center items-center bg-black">
@@ -53,7 +61,6 @@ const ThreeDMatrix = ({
           resetFlag ={resetFlag}
           setResetFlag={setResetFlag}
         />
-        <Coin/>
         <OrbitControls />
         <gridHelper args={[row, col, "red", "red", "red"]} />
         <mesh
@@ -71,6 +78,15 @@ const ThreeDMatrix = ({
             const position = [x, 0, z];
             return (
               <Box key={`${rowIndex}-${rowIndex + 1}`} position={position} />
+            );
+          })}
+          {filterBatteryPosition &&
+            filterBatteryPosition.map((value, rowIndex) => {
+            const x = value[0] - boxOffset - 0.5;
+            const z = -(value[1] - boxOffset - 0.5);
+            const position = [x, 0, z];
+            return (
+              <Star key={`${rowIndex}-${rowIndex + 1}`} position={position} />
             );
           })}
         <Stats />

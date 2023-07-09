@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
+import { motion } from "framer-motion-3d";
 
 export function Coin(props) {
   const group = useRef();
@@ -15,7 +16,12 @@ export function Coin(props) {
       <group name="Sketchfab_Scene">
         <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]}>
           <group name="Root">
-            <group name="star" scale={8}>
+            <motion.group name="star" scale={8}  initial={{y:0.27}}
+                animate={{y:4}}
+                transition={{
+                  delay:2,
+                  duration:3
+                }}>
               <mesh
                 name="star_0"
                 geometry={nodes.star_0.geometry}
@@ -31,7 +37,7 @@ export function Coin(props) {
                 geometry={nodes.star_2.geometry}
                 material={materials.Star}
               />
-            </group>
+            </motion.group>
           </group>
         </group>
       </group>
