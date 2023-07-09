@@ -82,8 +82,8 @@ const ThreeDMatrix = ({
               <Box key={`${rowIndex}-${rowIndex + 1}`} position={position} />
             );
           })}
-          {filterBatteryPosition &&
-            filterBatteryPosition.map((value, rowIndex) => {
+          {batteryPosition &&
+            batteryPosition.map((value, rowIndex) => {
             const x = value[0] - boxOffset - 0.5;
             const z = -(value[1] - boxOffset - 0.5);
             const position = [x, 0, z];

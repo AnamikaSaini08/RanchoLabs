@@ -14,15 +14,17 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useSelector } from "react-redux";
 
 const boxOffset = 5;
-const checkBatteryPosition = (filterBatteryPosition,setFilterBatteryPosition,position,setDeleteCoorBattery)=>{
+const checkBatteryPosition = (filterBatteryPosition,setFilterBatteryPosition,position,setDeleteCoorBattery,batteryCapture,setBatteryCapture,isBatteryX,isBatteryZ)=>{
   const tempfilterBatteryPosition = filterBatteryPosition.filter(([x, y]) => {
-    const isDeleted = x - boxOffset - 0.5 === position.x && -(y - boxOffset - 0.5) === position.z;
+    const isDeleted = x - boxOffset - 0.5 === isBatteryX && -(y - boxOffset - 0.5) === isBatteryZ;
     if (isDeleted) {
-      setDeleteCoorBattery([position.x, position.z]);
+      setDeleteCoorBattery([isBatteryX, isBatteryZ]);
     }
     return !isDeleted;
   });
-  //setFilterBatteryPosition(tempfilterBatteryPosition);
+  setFilterBatteryPosition(tempfilterBatteryPosition);
+  console.log("SIze---------- ",tempfilterBatteryPosition.length);
+  console.log("_-------------------", batteryCapture);
 }
 
 export function Robot(props) {
@@ -46,6 +48,7 @@ export function Robot(props) {
   const [currentIndex, setCurrentIndex] = useState(0); // Index of the current direction
   const animationDuration = 1; // Duration of each animation step in seconds
   const stepDistance = 0.01; // Distance to move in each animation step
+  const [batteryCapture , setBatteryCapture] = useState(0);
 
   const [position, setPosition] = useState({
     x: robotStartPosition.x - boxOffset - 0.5,
@@ -77,11 +80,24 @@ export function Robot(props) {
       setCurrentIndex(0);
       setResetFlag(false);
     }
+
+    if(!alertShown.current && blocklyInstruction.length && currentIndex>= blocklyInstruction.length){
+      if(filterBatteryPosition.length){
+        setTimeout(()=>{
+          alert("Game Loss");
+        },2000)
+      }
+      else{
+        alert("Game win");
+      }
+       alertShown.current = true;
+    }
+
     let direction;
     // Calculate the current direction
     if (
       alertShown.current === false &&
-      currentIndex <= blocklyInstruction.length - 1
+      currentIndex < blocklyInstruction.length 
     ) {
       direction = blocklyInstruction[currentIndex];
       if (robotDirectionRef.current === "LEFT") {
@@ -99,7 +115,7 @@ export function Robot(props) {
           //   ([x, y]) => !(x - boxOffset - 0.5 === position.x && -(y - boxOffset - 0.5) === position.z)
           // );
           // setFilterBatteryPosition(tempfilterBatteryPosition);}
-          checkBatteryPosition(filterBatteryPosition,setFilterBatteryPosition,position,setDeleteCoorBattery)
+          checkBatteryPosition(filterBatteryPosition,setFilterBatteryPosition,position,setDeleteCoorBattery,batteryCapture,setBatteryCapture,position.x - 1,position.z)
           mesh.position.x -= stepDistance;
           if (mesh.position.x < position.x - 1) {
             setCurrentIndex((prevIndex) => prevIndex + 1);
@@ -118,7 +134,7 @@ export function Robot(props) {
           //   ([x, y]) => !(x - boxOffset - 0.5 === position.x && -(y - boxOffset - 0.5) === position.z)
           // );
           // setFilterBatteryPosition(tempfilterBatteryPosition);}
-          checkBatteryPosition(filterBatteryPosition,setFilterBatteryPosition,position,setDeleteCoorBattery)
+          checkBatteryPosition(filterBatteryPosition,setFilterBatteryPosition,position,setDeleteCoorBattery,batteryCapture,setBatteryCapture,position.x + 1,position.z)
           if (mesh.position.x > position.x + 1) {
             setCurrentIndex((prevIndex) => prevIndex + 1);
             setPosition({ ...position, x: position.x + 1 });
@@ -146,7 +162,7 @@ export function Robot(props) {
           //   ([x, y]) => !(x - boxOffset - 0.5 === position.x && -(y - boxOffset - 0.5) === position.z)
           // );
           // setFilterBatteryPosition(tempfilterBatteryPosition);}
-          checkBatteryPosition(filterBatteryPosition,setFilterBatteryPosition,position,setDeleteCoorBattery)
+          checkBatteryPosition(filterBatteryPosition,setFilterBatteryPosition,position,setDeleteCoorBattery,batteryCapture,setBatteryCapture,position.x + 1,position.z)
           if (mesh.position.x > position.x + 1) {
             setCurrentIndex((prevIndex) => prevIndex + 1);
             setPosition({ ...position, x: position.x + 1 });
@@ -164,7 +180,7 @@ export function Robot(props) {
           //   ([x, y]) => !(x - boxOffset - 0.5 === position.x && -(y - boxOffset - 0.5) === position.z)
           // );
           // setFilterBatteryPosition(tempfilterBatteryPosition);}
-          checkBatteryPosition(filterBatteryPosition,setFilterBatteryPosition,position,setDeleteCoorBattery)
+          checkBatteryPosition(filterBatteryPosition,setFilterBatteryPosition,position,setDeleteCoorBattery,batteryCapture,setBatteryCapture,position.x - 1,position.z)
           if (mesh.position.x < position.x - 1) {
             setCurrentIndex((prevIndex) => prevIndex + 1);
             setPosition({ ...position, x: position.x - 1 });
@@ -187,12 +203,13 @@ export function Robot(props) {
             alert("Game End");
             return;
           }
-          mesh.position.z -= stepDistance;
+          
           // {const tempfilterBatteryPosition = filterBatteryPosition.filter(
           //   ([x, y]) => !(x - boxOffset - 0.5 === position.x && -(y - boxOffset - 0.5) === position.z)
           // );
           // setFilterBatteryPosition(tempfilterBatteryPosition);}
-          checkBatteryPosition(filterBatteryPosition,setFilterBatteryPosition,position,setDeleteCoorBattery)
+          checkBatteryPosition(filterBatteryPosition,setFilterBatteryPosition,position,setDeleteCoorBattery,batteryCapture,setBatteryCapture,position.x,position.z-1)
+          mesh.position.z -= stepDistance;
           if (mesh.position.z < position.z - 1) {
             setCurrentIndex((prevIndex) => prevIndex + 1);
             setPosition({ ...position, z: position.z - 1 });
@@ -210,7 +227,7 @@ export function Robot(props) {
           //   ([x, y]) => !(x - boxOffset - 0.5 === position.x && -(y - boxOffset - 0.5) === position.z)
           // );
           // setFilterBatteryPosition(tempfilterBatteryPosition);}
-          checkBatteryPosition(filterBatteryPosition,setFilterBatteryPosition,position,setDeleteCoorBattery)
+          checkBatteryPosition(filterBatteryPosition,setFilterBatteryPosition,position,setDeleteCoorBattery,batteryCapture,setBatteryCapture,position.x,position.z+1)
           if (mesh.position.z > position.z + 1) {
             setCurrentIndex((prevIndex) => prevIndex + 1);
             setPosition({ ...position, z: position.z + 1 });
@@ -238,7 +255,7 @@ export function Robot(props) {
           //   ([x, y]) => !(x - boxOffset - 0.5 === position.x && -(y - boxOffset - 0.5) === position.z)
           // );
           // setFilterBatteryPosition(tempfilterBatteryPosition);}
-          checkBatteryPosition(filterBatteryPosition,setFilterBatteryPosition,position,setDeleteCoorBattery)
+          checkBatteryPosition(filterBatteryPosition,setFilterBatteryPosition,position,setDeleteCoorBattery,batteryCapture,setBatteryCapture,position.x,position.z+1)
           if (mesh.position.z > position.z + 1) {
             setCurrentIndex((prevIndex) => prevIndex + 1);
             setPosition({ ...position, z: position.z + 1 });
@@ -256,7 +273,7 @@ export function Robot(props) {
           //   ([x, y]) => !(x - boxOffset - 0.5 === position.x && -(y - boxOffset - 0.5) === position.z)
           // );
           // setFilterBatteryPosition(tempfilterBatteryPosition);}
-          checkBatteryPosition(filterBatteryPosition,setFilterBatteryPosition,position,setDeleteCoorBattery)
+          checkBatteryPosition(filterBatteryPosition,setFilterBatteryPosition,position,setDeleteCoorBattery,batteryCapture,setBatteryCapture,position.x,position.z-1)
           if (mesh.position.z < position.z - 1) {
             setCurrentIndex((prevIndex) => prevIndex + 1);
             setPosition({ ...position, z: position.z - 1 });

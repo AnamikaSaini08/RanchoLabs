@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { motion } from "framer-motion-3d";
 
-export function Coin({position ,robotPosition,deleteCoorBattery,isStarToDelete}) {
+export function Coin({position,deleteCoorBattery,isStarToDelete}) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF("./Assets/coin/scene.gltf");
   const { actions, names } = useAnimations(animations, group);
@@ -24,7 +24,7 @@ export function Coin({position ,robotPosition,deleteCoorBattery,isStarToDelete})
     );
   };
 
-  const transition = isStarToDelete.current ? { duration: 3 } : null;
+  const transition = isStarToDelete.current ? { delay:1.5, duration: 3, type: 'spring' } : null;
   return (
     <group ref={group} scale={3} position={[0, 0.5, 0]} dispose={null}>
       <group name="Sketchfab_Scene">
