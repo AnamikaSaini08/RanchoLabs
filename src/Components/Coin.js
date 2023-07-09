@@ -12,16 +12,12 @@ export function Coin(props) {
   }, []);
 
   return (
-    <group ref={group} scale={3} position={[0, 0.5, -1]} dispose={null}>
+    <group ref={group} scale={3} position={[0, 0.5, 0]} dispose={null}>
       <group name="Sketchfab_Scene">
         <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]}>
           <group name="Root">
-            <motion.group name="star" scale={8}  initial={{y:0.27}}
-                animate={{y:4}}
-                transition={{
-                  delay:2,
-                  duration:3
-                }}>
+            <motion.group name="star" scale={8}  
+               >
               <mesh
                 name="star_0"
                 geometry={nodes.star_0.geometry}

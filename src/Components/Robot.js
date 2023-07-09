@@ -21,6 +21,8 @@ export function Robot(props) {
     robotStartPosition,
     robotEndPosition,
     batteryPosition,
+    filterBatteryPosition,
+    setFilterBatteryPosition,
     obstaclePosition,
     resetFlag,
     setResetFlag
@@ -75,7 +77,10 @@ export function Robot(props) {
             alert("Game End");
             return;
           }
-          
+          const tempfilterBatteryPosition = filterBatteryPosition.filter(
+            ([x, y]) => !(x - boxOffset - 0.5 === position.x && -(y - boxOffset - 0.5) === position.z)
+          );
+          setFilterBatteryPosition(tempfilterBatteryPosition);
           mesh.position.x -= stepDistance;
           if (mesh.position.x < position.x - 1) {
             setCurrentIndex((prevIndex) => prevIndex + 1);
@@ -90,6 +95,10 @@ export function Robot(props) {
             return;
           }
           mesh.position.x += stepDistance;
+          const tempfilterBatteryPosition = filterBatteryPosition.filter(
+            ([x, y]) => !(x - boxOffset - 0.5 === position.x && -(y - boxOffset - 0.5) === position.z)
+          );
+          setFilterBatteryPosition(tempfilterBatteryPosition);
           if (mesh.position.x > position.x + 1) {
             setCurrentIndex((prevIndex) => prevIndex + 1);
             setPosition({ ...position, x: position.x + 1 });
@@ -113,6 +122,10 @@ export function Robot(props) {
             return;
           }
           mesh.position.x += stepDistance;
+          const tempfilterBatteryPosition = filterBatteryPosition.filter(
+            ([x, y]) => !(x - boxOffset - 0.5 === position.x && -(y - boxOffset - 0.5) === position.z)
+          );
+          setFilterBatteryPosition(tempfilterBatteryPosition);
           if (mesh.position.x > position.x + 1) {
             setCurrentIndex((prevIndex) => prevIndex + 1);
             setPosition({ ...position, x: position.x + 1 });
@@ -126,6 +139,10 @@ export function Robot(props) {
             return;
           }
           mesh.position.x -= stepDistance;
+          const tempfilterBatteryPosition = filterBatteryPosition.filter(
+            ([x, y]) => !(x - boxOffset - 0.5 === position.x && -(y - boxOffset - 0.5) === position.z)
+          );
+          setFilterBatteryPosition(tempfilterBatteryPosition);
           if (mesh.position.x < position.x - 1) {
             setCurrentIndex((prevIndex) => prevIndex + 1);
             setPosition({ ...position, x: position.x - 1 });
@@ -149,6 +166,10 @@ export function Robot(props) {
             return;
           }
           mesh.position.z -= stepDistance;
+          const tempfilterBatteryPosition = filterBatteryPosition.filter(
+            ([x, y]) => !(x - boxOffset - 0.5 === position.x && -(y - boxOffset - 0.5) === position.z)
+          );
+          setFilterBatteryPosition(tempfilterBatteryPosition);
           if (mesh.position.z < position.z - 1) {
             setCurrentIndex((prevIndex) => prevIndex + 1);
             setPosition({ ...position, z: position.z - 1 });
@@ -162,6 +183,10 @@ export function Robot(props) {
             return;
           }
           mesh.position.z += stepDistance;
+          const tempfilterBatteryPosition = filterBatteryPosition.filter(
+            ([x, y]) => !(x - boxOffset - 0.5 === position.x && -(y - boxOffset - 0.5) === position.z)
+          );
+          setFilterBatteryPosition(tempfilterBatteryPosition);
           if (mesh.position.z > position.z + 1) {
             setCurrentIndex((prevIndex) => prevIndex + 1);
             setPosition({ ...position, z: position.z + 1 });
@@ -185,6 +210,10 @@ export function Robot(props) {
             return;
           }
           mesh.position.z += stepDistance;
+          const tempfilterBatteryPosition = filterBatteryPosition.filter(
+            ([x, y]) => !(x - boxOffset - 0.5 === position.x && -(y - boxOffset - 0.5) === position.z)
+          );
+          setFilterBatteryPosition(tempfilterBatteryPosition);
           if (mesh.position.z > position.z + 1) {
             setCurrentIndex((prevIndex) => prevIndex + 1);
             setPosition({ ...position, z: position.z + 1 });
@@ -198,6 +227,10 @@ export function Robot(props) {
             return;
           }
           mesh.position.z -= stepDistance;
+          const tempfilterBatteryPosition = filterBatteryPosition.filter(
+            ([x, y]) => !(x - boxOffset - 0.5 === position.x && -(y - boxOffset - 0.5) === position.z)
+          );
+          setFilterBatteryPosition(tempfilterBatteryPosition);
           if (mesh.position.z < position.z - 1) {
             setCurrentIndex((prevIndex) => prevIndex + 1);
             setPosition({ ...position, z: position.z - 1 });

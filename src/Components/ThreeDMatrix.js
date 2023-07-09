@@ -57,6 +57,8 @@ const ThreeDMatrix = ({
           robotStartPosition={robotStartPosition}
           robotEndPosition={robotEndPosition}
           batteryPosition={batteryPosition}
+          filterBatteryPosition={filterBatteryPosition}
+          setFilterBatteryPosition={setFilterBatteryPosition}
           obstaclePosition={obstaclePosition}
           resetFlag ={resetFlag}
           setResetFlag={setResetFlag}
@@ -86,7 +88,7 @@ const ThreeDMatrix = ({
             const z = -(value[1] - boxOffset - 0.5);
             const position = [x, 0, z];
             return (
-              <Star key={`${rowIndex}-${rowIndex + 1}`} position={position} />
+              <Star key={`${x}-${z}`} position={position} />
             );
           })}
         <Stats />
