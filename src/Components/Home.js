@@ -38,8 +38,6 @@ const Home = () => {
         <ThreeDMatrix
           {...gamesConfig.gameConfigOne}
           robotPositionRef={robotPositionRef}
-          robotPosition={robotPosition}
-          setRobotPosition={setRobotPosition}
           resetFlag={resetFlag}
           setResetFlag={setResetFlag}
         />

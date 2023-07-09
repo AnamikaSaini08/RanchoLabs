@@ -18,11 +18,11 @@ const checkBatteryPosition = (filterBatteryPosition,setFilterBatteryPosition,pos
   const tempfilterBatteryPosition = filterBatteryPosition.filter(([x, y]) => {
     const isDeleted = x - boxOffset - 0.5 === position.x && -(y - boxOffset - 0.5) === position.z;
     if (isDeleted) {
-      setDeleteCoorBattery([x, y]);
+      setDeleteCoorBattery([position.x, position.z]);
     }
     return !isDeleted;
   });
-  setFilterBatteryPosition(tempfilterBatteryPosition);
+  //setFilterBatteryPosition(tempfilterBatteryPosition);
 }
 
 export function Robot(props) {
@@ -38,7 +38,7 @@ export function Robot(props) {
     obstaclePosition,
     resetFlag,
     setResetFlag,
-    setDeleteCoorBattery
+    setDeleteCoorBattery,
   } = { ...props };
 
   const { nodes, materials, animations } = useGLTF("./Assets/robot/scene.gltf");
@@ -52,6 +52,7 @@ export function Robot(props) {
     y: 0.27,
     z: -(robotStartPosition.y - boxOffset - 0.5)
   });
+  
   let blocklyInstruction = useSelector(
     (store) => store.blocklyInstruction.blockInstructionArray
   );
@@ -66,6 +67,11 @@ export function Robot(props) {
         y: 0.27,
         z: -(robotStartPosition.y - boxOffset - 0.5)
       });
+({
+        x: robotStartPosition.x - boxOffset - 0.5,
+        y: 0.27,
+        z: -(robotStartPosition.y - boxOffset - 0.5)
+      })
       mesh.position.x = position.x;
       mesh.position.z = position.z;
       setCurrentIndex(0);

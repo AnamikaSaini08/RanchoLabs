@@ -7,6 +7,7 @@ import { Robot } from "./Robot";
 import { DoubleSide } from "three";
 import { useState, useRef } from "react";
 import {Coin} from './Coin';
+const boxOffset=5;
 
 function Box({ position }) {
   const boxRef = useRef();
@@ -17,10 +18,10 @@ function Box({ position }) {
     </mesh>
   );
 }
-function Star({ position }) {
+function Star({ position,deleteCoorBattery,isStarToDelete }) {
   return (
     <mesh position={position}>
-      <Coin/>
+      <Coin position={position} deleteCoorBattery={deleteCoorBattery} isStarToDelete={isStarToDelete}/>
     </mesh>
   );
 }
@@ -32,12 +33,9 @@ const ThreeDMatrix = ({
   robotStartPosition,
   robotEndPosition,
   robotPositionRef,
-  robotPosition,
-  setRobotPosition,
   resetFlag,
   setResetFlag
 }) => {
-  const boxOffset = 5;
   const [filterBatteryPosition , setFilterBatteryPosition] = useState(batteryPosition);
   const [deleteCoorBattery,setDeleteCoorBattery] = useState([]);
 
@@ -89,8 +87,9 @@ const ThreeDMatrix = ({
             const x = value[0] - boxOffset - 0.5;
             const z = -(value[1] - boxOffset - 0.5);
             const position = [x, 0, z];
+            const isStarToDelete = useRef(false);
             return (
-              <Star key={`${x}-${z}`} position={position} />
+              <Star key={x+z} position={position} deleteCoorBattery={deleteCoorBattery} isStarToDelete={isStarToDelete}/>
             );
           })}
         <Stats />
