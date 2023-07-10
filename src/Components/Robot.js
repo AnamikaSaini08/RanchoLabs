@@ -23,8 +23,6 @@ const checkBatteryPosition = (filterBatteryPosition,setFilterBatteryPosition,pos
     return !isDeleted;
   });
   setFilterBatteryPosition(tempfilterBatteryPosition);
-  console.log("SIze---------- ",tempfilterBatteryPosition.length);
-  console.log("_-------------------", batteryCapture);
 }
 
 export function Robot(props) {
@@ -41,6 +39,9 @@ export function Robot(props) {
     resetFlag,
     setResetFlag,
     setDeleteCoorBattery,
+    isWin,
+    setIsWin,
+    setCameraPosition
   } = { ...props };
 
   const { nodes, materials, animations } = useGLTF("./Assets/robot/scene.gltf");
@@ -49,6 +50,10 @@ export function Robot(props) {
   const animationDuration = 1; // Duration of each animation step in seconds
   const stepDistance = 0.01; // Distance to move in each animation step
   const [batteryCapture , setBatteryCapture] = useState(0);
+  console.log("NAmes ",names);
+  useEffect(()=>{
+    actions[names[0]].reset().fadeIn(0.5).play();
+  },[])
 
   const [position, setPosition] = useState({
     x: robotStartPosition.x - boxOffset - 0.5,
@@ -83,13 +88,18 @@ export function Robot(props) {
 
     if(!alertShown.current && blocklyInstruction.length && currentIndex>= blocklyInstruction.length){
       if(filterBatteryPosition.length){
+        setIsWin(false);
         setTimeout(()=>{
           alert("Game Loss");
         },2000)
       }
       else{
-        alert("Game win");
+        setIsWin(true);
+        setTimeout(()=>{
+          alert("Game Win");
+        },2000)
       }
+      setCameraPosition([position])
        alertShown.current = true;
     }
 
@@ -300,6 +310,7 @@ export function Robot(props) {
         0.27,
         -(robotStartPosition.y - boxOffset - 0.5)
       ]}
+       scale={1.5}
       dispose={null}
     >
       <group name="Sketchfab_Scene">

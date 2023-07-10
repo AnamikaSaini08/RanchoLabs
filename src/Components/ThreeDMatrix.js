@@ -7,6 +7,8 @@ import { Robot } from "./Robot";
 import { DoubleSide } from "three";
 import { useState, useRef } from "react";
 import {Coin} from './Coin';
+import {Space} from './BackgroundSpace';
+import { Plane } from "./Plane";
 const boxOffset=5;
 
 function Box({ position }) {
@@ -38,10 +40,12 @@ const ThreeDMatrix = ({
 }) => {
   const [filterBatteryPosition , setFilterBatteryPosition] = useState(batteryPosition);
   const [deleteCoorBattery,setDeleteCoorBattery] = useState([]);
+  const [isWin , setIsWin] = useState(false);
+  const [cameraPosition, setCameraPosition] = useState([0, 5, 6]);
 
   return (
-    <div className="h-screen w-full flex justify-center items-center bg-black">
-      <Canvas camera={{ position: [0, 6, 7] }}>
+    <div className="h-screen w-full bg-blue-700">
+      <Canvas camera={{ position: cameraPosition }}>
         <ambientLight />
         <spotLight
           intensity={0.9}
@@ -50,6 +54,8 @@ const ThreeDMatrix = ({
           position={[10, 15, 10]}
           castShadow
         />
+         <Space/>
+         <Plane/>
         <Robot
           row={row}
           col={col}
@@ -62,6 +68,9 @@ const ThreeDMatrix = ({
           resetFlag ={resetFlag}
           setResetFlag={setResetFlag}
           setDeleteCoorBattery ={setDeleteCoorBattery}
+          isWin ={isWin}
+          setIsWin ={setIsWin}
+          setCameraPosition={setCameraPosition}
         />
         <OrbitControls />
         <gridHelper args={[row, col, "red", "red", "red"]} />

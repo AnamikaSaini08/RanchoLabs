@@ -34,7 +34,7 @@ export function Coin({position,deleteCoorBattery,isStarToDelete}) {
               <motion.group
                 name="star"
                 scale={8}
-                animate={{ y: 7}}
+                animate={{ y: 7 , z:2}}
                 transition={transition}
               >
                 <mesh
