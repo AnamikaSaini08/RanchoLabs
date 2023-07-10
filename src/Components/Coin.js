@@ -26,7 +26,7 @@ export function Coin({position,deleteCoorBattery,isStarToDelete}) {
 
   const transition = isStarToDelete.current ? { delay:1.5, duration: 3, type: 'spring' } : null;
   return (
-    <group ref={group} scale={3} position={[0, 0.5, 0]} dispose={null}>
+    <group ref={group} scale={3.6} position={[0, 0.5, 0]} dispose={null}>
       <group name="Sketchfab_Scene">
         <group name="Sketchfab_model" rotation={[-Math.PI / 2, 0, 0]}>
           <group name="Root">

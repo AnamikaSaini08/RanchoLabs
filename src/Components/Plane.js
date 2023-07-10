@@ -12,13 +12,14 @@ import { useGLTF, useAnimations } from '@react-three/drei'
 
 export function Plane(props) {
   const group = useRef()
+  const {position} = {...props};
   const { nodes, materials, animations } = useGLTF('./Assets/plane/scene-transformed.glb')
   const { actions ,names} = useAnimations(animations, group)
   useEffect(()=>{
     actions[names[0]].reset().fadeIn(0.5).play();
   },[])
   return (
-    <group ref={group} {...props} dispose={null} position={[-17,6,-20]}>
+    <group ref={group} {...props} dispose={null} position={position}>
       <group name="Sketchfab_Scene">
         <primitive object={nodes.GLTF_created_0_rootJoint} />
         <skinnedMesh name="Object_48" geometry={nodes.Object_48.geometry} material={materials.material_0} skeleton={nodes.Object_48.skeleton} scale={0.01} />

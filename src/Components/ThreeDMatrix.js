@@ -15,7 +15,7 @@ function Box({ position }) {
   const boxRef = useRef();
   return (
     <mesh position={position}>
-      <boxGeometry args={[1, 1, 1]} />
+      <boxGeometry args={[1, 0.6, 1]} />
       <meshStandardMaterial color="red" />
     </mesh>
   );
@@ -41,7 +41,7 @@ const ThreeDMatrix = ({
   const [filterBatteryPosition , setFilterBatteryPosition] = useState(batteryPosition);
   const [deleteCoorBattery,setDeleteCoorBattery] = useState([]);
   const [isWin , setIsWin] = useState(false);
-  const [cameraPosition, setCameraPosition] = useState([0, 5, 6]);
+  const [cameraPosition, setCameraPosition] = useState([5, 5, 7]);
 
   return (
     <div className="h-screen w-full bg-blue-700">
@@ -55,7 +55,7 @@ const ThreeDMatrix = ({
           castShadow
         />
          <Space position={[0,4,-17]}/>
-         <Plane/>
+         <Plane position= {[-17,6,-20]}/>
         <Robot
           row={row}
           col={col}
@@ -70,9 +70,12 @@ const ThreeDMatrix = ({
           setDeleteCoorBattery ={setDeleteCoorBattery}
           isWin ={isWin}
           setIsWin ={setIsWin}
+          cameraPosition={cameraPosition}
           setCameraPosition={setCameraPosition}
         />
-        <OrbitControls/>
+        <OrbitControls enablePan={false}  
+  minPolarAngle={0}
+  maxPolarAngle={Math.PI / 2}/>
         <gridHelper args={[row, col, "red", "red", "red"]} />
         <mesh
           position={[0, -0.01, 0]}
@@ -86,7 +89,7 @@ const ThreeDMatrix = ({
           obstaclePosition.map((value, rowIndex) => {
             const x = value[0] - boxOffset - 0.5;
             const z = -(value[1] - boxOffset - 0.5);
-            const position = [x, 0, z];
+            const position = [x, 0.3, z];
             return (
               <Box key={`${x}-${z}`} position={position} />
             );
