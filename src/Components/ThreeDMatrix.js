@@ -2,13 +2,13 @@ import { Canvas } from "@react-three/fiber";
 import Polyhedron from "./Polyhedron";
 import * as THREE from "three";
 import { Stats, OrbitControls } from "@react-three/drei";
-import { AnimatedRobot } from "./AnimatedRobot";
 import { Robot } from "./Robot";
 import { DoubleSide } from "three";
 import { useState, useRef } from "react";
 import {Coin} from './Coin';
 import {Space} from './BackgroundSpace';
 import { Plane } from "./Plane";
+import { SpaceTwo } from "./SpaceTwo";
 const boxOffset=5;
 
 function Box({ position }) {
@@ -54,7 +54,7 @@ const ThreeDMatrix = ({
           position={[10, 15, 10]}
           castShadow
         />
-         <Space/>
+         <Space position={[0,4,-17]}/>
          <Plane/>
         <Robot
           row={row}
@@ -72,7 +72,7 @@ const ThreeDMatrix = ({
           setIsWin ={setIsWin}
           setCameraPosition={setCameraPosition}
         />
-        <OrbitControls />
+        <OrbitControls/>
         <gridHelper args={[row, col, "red", "red", "red"]} />
         <mesh
           position={[0, -0.01, 0]}
@@ -88,7 +88,7 @@ const ThreeDMatrix = ({
             const z = -(value[1] - boxOffset - 0.5);
             const position = [x, 0, z];
             return (
-              <Box key={`${rowIndex}-${rowIndex + 1}`} position={position} />
+              <Box key={`${x}-${z}`} position={position} />
             );
           })}
           {batteryPosition &&
@@ -102,6 +102,8 @@ const ThreeDMatrix = ({
             );
           })}
         <Stats />
+        <SpaceTwo position={[15,0,7]}/>
+        <Space position={[0,4,27]}/>
       </Canvas>
     </div>
   );

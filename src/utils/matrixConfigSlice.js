@@ -17,7 +17,7 @@ const matrixConfigSlice = createSlice({
       batteryPosition: [
         [4, 3],
         [2,3],
-        
+        [3,2]
       ],
       initialDirectionRobot: "TOP"
     },

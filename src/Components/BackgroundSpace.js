@@ -12,8 +12,9 @@ import { useGLTF } from '@react-three/drei'
 
 export function Space(props) {
   const { nodes, materials } = useGLTF('./Assets/background/scene-transformed.glb')
+  const {position} = {...props};
   return (
-    <group {...props} dispose={null} position={[0,4,-17]}>
+    <group {...props} dispose={null} position={position}>
       <mesh geometry={nodes.planet001.geometry} material={materials.scene} position={[-0.003, -6.331, -0.024]} rotation={[-1.333, -0.545, 0.562]} scale={7} />
     </group>
   )
