@@ -13,10 +13,11 @@ const Home = () => {
     gamesConfig.gameConfigOne.robotStartPosition
   );
   const [resetFlag,setResetFlag] = useState(false);
+  const [full3DScreen, setFull3DScreen] = useState(false);
 
   return (
-    <div className="flex w-full ">
-      <div className="w-1/2">
+    <div className="flex w-screen ">
+      {!full3DScreen && <div className="w-1/2">
         <BlocklyComponent
           readOnly={false}
           trashcan={true}
@@ -33,8 +34,8 @@ const Home = () => {
           <Block type="turn_block" />
           <Block type="move_block" />
         </BlocklyComponent>
-      </div>
-      <div className="w-1/2">
+      </div>}
+      <div  className={`${full3DScreen ? "w-screen" : " w-1/2"}`}>
         <ThreeDMatrix
           {...gamesConfig.gameConfigOne}
           robotPositionRef={robotPositionRef}
@@ -42,6 +43,8 @@ const Home = () => {
           setResetFlag={setResetFlag}
         />
         <button className="ml-96 bg-blue-500 px-3 py-3 text-center text-white text-bold" onClick={()=>setResetFlag(true)}>Reset</button>
+        <button onClick={()=>setFull3DScreen(!full3DScreen)}
+        className="bg-black text-white text-bold p-2 rounded-sm float-right mx-3">[  ]</button>
       </div>
     </div>
   );

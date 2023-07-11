@@ -41,7 +41,7 @@ const ThreeDMatrix = ({
   const [filterBatteryPosition , setFilterBatteryPosition] = useState(batteryPosition);
   const [deleteCoorBattery,setDeleteCoorBattery] = useState([]);
   const [isWin , setIsWin] = useState(false);
-  const [cameraPosition, setCameraPosition] = useState([5, 5, 7]);
+  const [cameraPosition, setCameraPosition] = useState([2, 5, 7]);
 
   return (
     <div className="h-screen w-full bg-blue-700">
@@ -75,12 +75,12 @@ const ThreeDMatrix = ({
         />
         <OrbitControls enablePan={false}  
   minPolarAngle={0}
-  maxPolarAngle={Math.PI / 2}/>
+  maxPolarAngle={Math.PI / 2.5}/>
         <gridHelper args={[row, col, "red", "red", "red"]} />
         <mesh
           position={[0, -0.01, 0]}
           rotation={[Math.PI / 2, 0, 0]}
-          scale={[row, col, 1]}
+          scale={[row, col, 2]}
         >
           <planeBufferGeometry />
           <meshBasicMaterial color="orange" side={DoubleSide} />
