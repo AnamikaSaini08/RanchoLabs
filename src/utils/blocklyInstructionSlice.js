@@ -11,8 +11,11 @@ const blocklyInstructionSlice = createSlice({
         },
         resetBlocklyInstruction : (state,action)=>{
             state.blockInstructionArray = [];
+        },
+        addHintInstruction:(state,action)=>{
+            state.blockInstructionArray = action.payload
         }
     }
 });
-export const {addBlockInstruction,resetBlocklyInstruction} = blocklyInstructionSlice.actions;
+export const {addBlockInstruction,resetBlocklyInstruction,addHintInstruction} = blocklyInstructionSlice.actions;
 export default blocklyInstructionSlice.reducer;

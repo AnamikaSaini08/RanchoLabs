@@ -15,11 +15,10 @@ const matrixConfigSlice = createSlice({
         [5,3]
       ],
       batteryPosition: [
-        [4, 3],
-        [2,3],
         [3,2]
       ],
-      initialDirectionRobot: "TOP"
+      initialDirectionRobot: "TOP",
+      hintArray: ["LEFT","FORWARD"]
     },
     gameConfigTwo: {
       row: 10,
@@ -34,12 +33,13 @@ const matrixConfigSlice = createSlice({
         [4, 4],
         [9, 9]
       ],
-      initialDirectionRobot: "Forward"
+      initialDirectionRobot: "Forward",
+      hintArray: ["Move LEFT\n","Move FORWARD\n"]
     },
     gameConfigThree: {
       row: 10,
       col: 10,
-      robotStartPosition: { x: 1, y: 1 },
+      robotStartPosition: { x: 4, y: 4 },
       robotEndPosition: { x: 10, y: 10 },
       obstaclePosition: [
         [2, 3],
@@ -48,7 +48,9 @@ const matrixConfigSlice = createSlice({
       batteryPosition: [
         [4, 4],
         [9, 9]
-      ]
+      ],
+      initialDirectionRobot: "Forward",
+      hintArray: ["LEFT","FORWARD"]
     },
     gameConfigFour: {
       row: 10,

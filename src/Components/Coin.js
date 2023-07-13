@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { motion } from "framer-motion-3d";
 
-export function Coin({position,deleteCoorBattery,isStarToDelete}) {
+export function Coin({position,deleteCoorBattery,isStarToDelete,resetFlag,setResetFlag}) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF("./Assets/coin/scene.gltf");
   const { actions, names } = useAnimations(animations, group);

@@ -12,7 +12,6 @@ import { SpaceTwo } from "./SpaceTwo";
 const boxOffset=5;
 
 function Box({ position }) {
-  const boxRef = useRef();
   return (
     <mesh position={position}>
       <boxGeometry args={[1, 0.6, 1]} />
@@ -20,10 +19,10 @@ function Box({ position }) {
     </mesh>
   );
 }
-function Star({ position,deleteCoorBattery,isStarToDelete }) {
+function Star({ position,deleteCoorBattery,isStarToDelete,resetFlag,setResetFlag }) {
   return (
     <mesh position={position}>
-      <Coin position={position} deleteCoorBattery={deleteCoorBattery} isStarToDelete={isStarToDelete}/>
+      <Coin position={position} deleteCoorBattery={deleteCoorBattery} isStarToDelete={isStarToDelete} resetFlag={resetFlag} setResetFlag={setResetFlag}/>
     </mesh>
   );
 }
@@ -34,14 +33,18 @@ const ThreeDMatrix = ({
   obstaclePosition,
   robotStartPosition,
   robotEndPosition,
-  robotPositionRef,
+  hintArray,
   resetFlag,
-  setResetFlag
+  setResetFlag,
+  showHint,
+  setShowHint,
+  hintNextButton
 }) => {
   const [filterBatteryPosition , setFilterBatteryPosition] = useState(batteryPosition);
   const [deleteCoorBattery,setDeleteCoorBattery] = useState([]);
   const [isWin , setIsWin] = useState(false);
   const [cameraPosition, setCameraPosition] = useState([2, 5, 7]);
+  const [tryCount , setTryCount] = useState(1);
 
   return (
     <div className="h-screen w-full bg-blue-700">
@@ -72,6 +75,12 @@ const ThreeDMatrix = ({
           setIsWin ={setIsWin}
           cameraPosition={cameraPosition}
           setCameraPosition={setCameraPosition}
+          tryCount ={tryCount}
+          setTryCount={setTryCount}
+          hintArray ={hintArray}
+          showHint ={showHint}
+          setShowHint ={setShowHint}
+          hintNextButton={hintNextButton}
         />
         <OrbitControls enablePan={false}  
   minPolarAngle={0}
@@ -101,7 +110,7 @@ const ThreeDMatrix = ({
             const position = [x, 0, z];
             const isStarToDelete = useRef(false);
             return (
-              <Star key={x+z} position={position} deleteCoorBattery={deleteCoorBattery} isStarToDelete={isStarToDelete}/>
+              <Star position={position} deleteCoorBattery={deleteCoorBattery} isStarToDelete={isStarToDelete} resetFlag={resetFlag} setResetFlag={setResetFlag}/>
             );
           })}
         <Stats />

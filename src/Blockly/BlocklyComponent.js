@@ -9,23 +9,18 @@ import "blockly/blocks";
 import { useDispatch, useSelector } from "react-redux";
 import { addBlockInstruction } from "../utils/blocklyInstructionSlice";
 import { generateCode } from "../utils/generateBlocklyCode";
-import { changeRobotPosition } from "../utils/changeRobotPosition";
 
 Blockly.setLocale(locale);
 
 function BlocklyComponent(props) {
-  const { robotPositionRef, robotPosition, setRobotPosition, setResetFlag } = props;
+  const {
+    readOnly,
+    trashcan,
+    move,
+  setResetFlag} = {...props};
   const blocklyDiv = useRef();
   const toolbox = useRef();
   let primaryWorkspace = useRef();
-  let blocklyInstruction = useSelector(
-    (store) => store.blocklyInstruction.blockInstructionArray
-  );
-  const gamesConfig = useSelector((store) => store.matrixConfig);
-  const { row, col, batteryPosition, obstaclePosition, initialDirectionRobot } =
-    gamesConfig.gameConfigOne;
-  const robotDirectionRef = useRef(initialDirectionRobot);
-
   const dispatch = useDispatch();
   let commandArray = [];
 
@@ -36,22 +31,15 @@ function BlocklyComponent(props) {
     //Below print , means just after dispatch render does't occur - neeche saare execute hone ke baad phir render hoga.
   };
 
-  /*useEffect(() => {
-    console.log("blocklyInstruction- ", blocklyInstruction);
-    robotPositionRef.current = initialDirectionRobot;
-
-  }, [blocklyInstruction]);*/
-
   useEffect(() => {
     const { children, ...rest } = props;
-    const { readOnly, trashcan, move } = props;
     const workspace = Blockly.inject(blocklyDiv.current, {
       toolbox: toolbox.current,
       readOnly,
       trashcan,
       move,
-      trashcan: props.trashcan,
-      move: props.move,
+      trashcan: trashcan,
+      move: move,
     });
     workspace.addChangeListener((event) => {
       if (
