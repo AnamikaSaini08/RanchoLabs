@@ -42,3 +42,24 @@ export function handleGameResult(status, message, icon , result , hint,setIsNext
       });
     }
   }
+
+  export function resetAlert(setResetFlag) {
+      Swal.fire({
+        title: "Reset Task?",
+        text: "You will lose the current code.",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Reset!",
+        cancelButtonColor: 'red',
+      }).then((result)=>{
+        setResetFlag(true);
+        if(result.isConfirmed){
+          Swal.fire({
+            title: "Reset",
+            text: "Your code is reset.",
+            icon: "success",
+            confirmButtonText: "OK",
+          })
+        }
+      });
+  }
