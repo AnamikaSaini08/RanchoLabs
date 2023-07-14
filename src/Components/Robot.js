@@ -62,7 +62,6 @@ export function Robot(props) {
     hintArray,
     showHint,
     setShowHint,
-    hintNextButton
   } = { ...props };
 
   const { nodes, materials, animations } = useGLTF("./Assets/robot/scene.gltf");
@@ -113,7 +112,7 @@ export function Robot(props) {
       setIsNextLevel(false);
       setShowHint(false);
     }
-  }, [isNextLevel,hintNextButton?.current]);
+  }, [isNextLevel]);
 
   useFrame(() => {
     const mesh = group.current;
@@ -154,7 +153,7 @@ export function Robot(props) {
           }
         }, 2000);
       } else {
-       !showHint && setTimeout(() => {
+       setTimeout(() => {
           setIsWin(true);
           handleGameResult(
             "Hurrah",

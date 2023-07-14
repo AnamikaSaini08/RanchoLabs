@@ -20,11 +20,12 @@ export function showHintFunction(setShowHint)
 export function handleGameResult(status, message, icon , result , hint,setIsNextLevel) {
     if(hint){
       Swal.fire({
-        icon: icon,
         title: status,
         text: message,
+        icon: icon,
+        showCancelButton: true,
         confirmButtonText: result,
-        denyButtonText: hint
+        cancelButtonColor: '#d33',
       });
     }else{
       Swal.fire({
@@ -32,6 +33,8 @@ export function handleGameResult(status, message, icon , result , hint,setIsNext
         title: status,
         text: message,
         confirmButtonText: result,
+        showCancelButton: true,
+        cancelButtonColor: '#d33',
       }).then((result) => {
         if (result.isConfirmed) {
           setIsNextLevel(true);

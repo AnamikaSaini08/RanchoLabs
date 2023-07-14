@@ -38,7 +38,6 @@ const ThreeDMatrix = ({
   setResetFlag,
   showHint,
   setShowHint,
-  hintNextButton
 }) => {
   const [filterBatteryPosition , setFilterBatteryPosition] = useState(batteryPosition);
   const [deleteCoorBattery,setDeleteCoorBattery] = useState([]);
@@ -80,7 +79,6 @@ const ThreeDMatrix = ({
           hintArray ={hintArray}
           showHint ={showHint}
           setShowHint ={setShowHint}
-          hintNextButton={hintNextButton}
         />
         <OrbitControls enablePan={false}  
   minPolarAngle={0}

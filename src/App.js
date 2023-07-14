@@ -7,7 +7,9 @@ import "./tailwind.output.css";
 function App() {
   return (
     <Provider store={store}>
-       <Home/>
+    <div className='overflow-y-hidden h-screen w-screen absolute'>
+    <Home/>
+    </div>
     </Provider>
   );
 }

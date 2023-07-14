@@ -57,7 +57,7 @@ const HintComponent = ({
         </ol>
         <div className="flex text-white flex-col justify-end w-full">
           <button
-            className="bg-green-600 px-3 py-2 rounded-sm  my-1"
+            className="bg-green-600 px-3 py-3 rounded-sm  my-1"
             onClick={() => {
               setShowHint(false);
               dispatch(resetBlocklyInstruction());
@@ -65,8 +65,6 @@ const HintComponent = ({
           >
             Try on Own!
           </button>
-          <button className="bg-red-600 px-3 py-2 rounded-sm mb-1" onClick={()=>hintNextButton.current = true}
-          >Next</button>
         </div>
       </div>
     </div>
