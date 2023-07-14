@@ -45,6 +45,7 @@ const Home = () => {
           <BlocklyComponent {...blocklyValues} setResetFlag={setResetFlag} gameLevel={gameLevel}>
             <Block type="turn_block" />
             <Block type="move_block" />
+            <Block type="repeat_block"/>
           </BlocklyComponent>
         </div>
       )}

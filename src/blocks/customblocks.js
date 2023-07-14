@@ -25,6 +25,39 @@ Blockly.Blocks['turn_block'] = {
   }
 };
 
+//For Loop Block
+Blockly.Blocks['repeat_block'] = {
+  init: function() {
+    this.jsonInit({
+      "type": "repeat_block",
+      "message0": "Repeat %1 times",
+      "args0": [
+        {
+          "type": "field_number",
+          "name": "TIMES",
+          "value": 5,
+          "min": 1
+        }
+      ],
+      "message1": "do %1",
+      "args1": [
+        {
+          "type": "input_statement",
+          "name": "DO"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": 260,
+      "tooltip": "Repeat a set of statements a specific number of times",
+      "helpUrl": ""
+    });
+    this.setStyle('loop_blocks');
+  }
+};
+
+
+
 //Move Block in forward/backward direction
 const moveBlock = {
   "type": "move_block",
