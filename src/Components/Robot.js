@@ -67,7 +67,7 @@ export function Robot(props) {
   const { nodes, materials, animations } = useGLTF("./Assets/robot/scene.gltf");
   const { actions, names } = useAnimations(animations, group);
   const [currentIndex, setCurrentIndex] = useState(0); // Index of the current direction
-  const stepDistance = 0.01; // Distance to move in each animation step
+  const stepDistance = 0.02; // Distance to move in each animation step
   const [batteryCapture, setBatteryCapture] = useState(0);
   const [isNextLevel , setIsNextLevel] = useState(false);
 
@@ -113,23 +113,37 @@ export function Robot(props) {
       setShowHint(false);
     }
   }, [isNextLevel]);
-
-  useFrame(() => {
-    const mesh = group.current;
-    if (resetFlag) {
-      setPosition({
-        x: robotStartPosition.x - boxOffset - 0.5,
-        y: 0,
-        z: -(robotStartPosition.y - boxOffset - 0.5),
-      });
-      mesh.position.x = position.x;
-      mesh.position.z = position.z;
+  const mesh = group.current;
+  const newPosition = {
+    x: robotStartPosition.x - boxOffset - 0.5,
+    y: 0,
+    z: -(robotStartPosition.y - boxOffset - 0.5),
+  };
+  useEffect(()=>{
+    if(resetFlag)
+    {
       setCurrentIndex(0);
+      setBatteryCapture(0);
       setResetFlag(false);
       alertShown.current = false;
+      setFilterBatteryPosition(batteryPosition);
+      setIsWin(false);
       dispatch(resetBlocklyInstruction());
+      setDeleteCoorBattery([]);
+      setShowHint(false);
+      setPosition(newPosition);
+      console.log("New-",newPosition)
+      group.current.position.x = newPosition.x;
+      group.current.position.z = newPosition.z;
     }
+  },[resetFlag])
 
+  useFrame(() => {
+    if(resetFlag){
+      group.current.position.x = newPosition.x;
+    group.current.position.z = newPosition.z;
+      console.log("------",position)
+    }
     if (
       !alertShown.current &&
       blocklyInstruction.length &&

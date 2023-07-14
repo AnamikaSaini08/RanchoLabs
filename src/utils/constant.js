@@ -52,8 +52,8 @@ export function handleGameResult(status, message, icon , result , hint,setIsNext
         confirmButtonText: "Reset!",
         cancelButtonColor: 'red',
       }).then((result)=>{
-        setResetFlag(true);
         if(result.isConfirmed){
+          setResetFlag(true);
           Swal.fire({
             title: "Reset",
             text: "Your code is reset.",

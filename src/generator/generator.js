@@ -1,6 +1,4 @@
 import {javascriptGenerator} from 'blockly/javascript';
-import Blockly from 'blockly';
-
 
 javascriptGenerator['turn_block'] = function(block) {
     const direction = block.getFieldValue('DIRECTION');

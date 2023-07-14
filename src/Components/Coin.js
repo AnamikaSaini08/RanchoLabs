@@ -9,13 +9,24 @@ export function Coin({position,deleteCoorBattery,isStarToDelete,resetFlag,setRes
 
   useEffect(() => {
     actions[names[0]].play();
-  }, []);
+  }, [resetFlag]);
  
   useEffect(() => {
     if(shouldAnimate()){
       isStarToDelete.current = true;
     }
   }, [deleteCoorBattery]);
+
+  const resetStar = () => {
+    isStarToDelete.current = false;
+  };
+  useEffect(() => {
+    if (resetFlag) {
+      resetStar();
+       actions[names[0]].play();
+    }
+  }, [resetFlag]);
+
   const shouldAnimate = () => {
     return (
       deleteCoorBattery.length &&
@@ -24,7 +35,9 @@ export function Coin({position,deleteCoorBattery,isStarToDelete,resetFlag,setRes
     );
   };
 
-  const transition = isStarToDelete.current ? { delay:1.5, duration: 3, type: 'spring' } : null;
+  const transition = isStarToDelete.current ? { delay:1.5, duration: 3, onStart: () => {
+    actions[names[0]].play();
+  }, } : null;
   return (
     <group ref={group} scale={3.6} position={[0, 0.5, 0]} dispose={null}>
       <group name="Sketchfab_Scene">
@@ -34,8 +47,9 @@ export function Coin({position,deleteCoorBattery,isStarToDelete,resetFlag,setRes
               <motion.group
                 name="star"
                 scale={8}
-                animate={{ y: 7 , z:2}}
+                animate={{ y: 7, z: 2 }}
                 transition={transition}
+                initial={{ y: 0, z: 0 }}
               >
                 <mesh
                   name="star_0"

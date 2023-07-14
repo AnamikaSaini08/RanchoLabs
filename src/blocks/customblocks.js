@@ -35,7 +35,7 @@ Blockly.Blocks['repeat_block'] = {
         {
           "type": "field_number",
           "name": "TIMES",
-          "value": 5,
+          "value": 1,
           "min": 1
         }
       ],
