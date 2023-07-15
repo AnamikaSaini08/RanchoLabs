@@ -114,6 +114,8 @@ export function Robot(props) {
     }
   }, [isNextLevel]);
   const mesh = group.current;
+  let direction;
+
   const newPosition = {
     x: robotStartPosition.x - boxOffset - 0.5,
     y: 0,
@@ -132,16 +134,33 @@ export function Robot(props) {
       setDeleteCoorBattery([]);
       setShowHint(false);
       setPosition(newPosition);
-      console.log("New-",newPosition)
       group.current.position.x = newPosition.x;
       group.current.position.z = newPosition.z;
+      console.log("D-",direction)
+      if (robotDirectionRef.current === "LEFT") {
+        group.current.rotation.y -= Math.PI / 2;
+        console.log("Y111-------",mesh.rotation.y);
+      } else if (robotDirectionRef.current === "RIGHT") {
+        group.current.rotation.y += Math.PI / 2;
+      } else if (robotDirectionRef.current === "BOTTOM") {
+        group.current.rotation.y += Math.PI;
+      }
+      robotDirectionRef.current = "TOP";
     }
   },[resetFlag])
 
   useFrame(() => {
     if(resetFlag){
       group.current.position.x = newPosition.x;
-    group.current.position.z = newPosition.z;
+      group.current.position.z = newPosition.z;
+      if (robotDirectionRef.current === "LEFT") {
+        group.current.rotation.y -= (-Math.PI / 2);
+        console.log("Y-------",mesh.rotation.y);
+      } else if (robotDirectionRef.current === "RIGHT") {
+        group.current.rotation.y = Math.PI / 2;
+      } else if (robotDirectionRef.current === "BOTTOM") {
+        group.current.rotation.y = Math.PI;
+      }
       console.log("------",position)
     }
     if (
@@ -182,8 +201,6 @@ export function Robot(props) {
       setCameraPosition([position]);
       alertShown.current = true;
     }
-  
-    let direction;
     // Calculate the current direction
     if (
       alertShown.current === false &&
